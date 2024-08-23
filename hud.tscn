@@ -1,0 +1,148 @@
+[gd_scene load_steps=8 format=3 uid="uid://7cqtmupqqgma"]
+
+[ext_resource type="FontFile" uid="uid://cuxvo4t8iamee" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="1_dr6cd"]
+[ext_resource type="Script" path="res://hud.gd" id="1_fsxcd"]
+[ext_resource type="FontFile" uid="uid://cfq7v51uro8kx" path="res://assets/fonts/gemunu-libre-v8-latin-700.ttf" id="1_vl6u5"]
+[ext_resource type="Texture2D" uid="uid://2og4ehsxa04h" path="res://assets/items/pixel heart 2.png" id="2_8uvtb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cguxb"]
+font = ExtResource("1_dr6cd")
+font_size = 78
+font_color = Color(0.301961, 0.615686, 0.768627, 1)
+outline_color = Color(1, 0.792157, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0gehk"]
+font = ExtResource("1_dr6cd")
+font_size = 35
+font_color = Color(1, 1, 1, 0.745098)
+
+[sub_resource type="LabelSettings" id="LabelSettings_374y5"]
+font = ExtResource("1_vl6u5")
+font_size = 55
+shadow_size = 2
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_fsxcd")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 993.0
+offset_bottom = 564.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0156863, 0.105882, 0.203922, 0.592157)
+
+[node name="level complete" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ColorRect/level complete"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "LEVEL COMPLETE"
+label_settings = SubResource("LabelSettings_cguxb")
+
+[node name="Label2" type="Label" parent="ColorRect/level complete"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "PRESS JUMP FOR NEXT LEVEL"
+label_settings = SubResource("LabelSettings_0gehk")
+
+[node name="game over" type="VBoxContainer" parent="ColorRect"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ColorRect/game over"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Game over!"
+label_settings = SubResource("LabelSettings_cguxb")
+
+[node name="Label2" type="Label" parent="ColorRect/game over"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "PRESS JUMP FOR MAIN MENU"
+label_settings = SubResource("LabelSettings_0gehk")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 1013.0
+offset_bottom = 118.0
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "00000"
+label_settings = SubResource("LabelSettings_374y5")
+
+[node name="hearts" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/hearts"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_8uvtb")
+stretch_mode = 5
+
+[node name="TextureRect4" type="TextureRect" parent="MarginContainer/HBoxContainer/hearts"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_8uvtb")
+stretch_mode = 5
+
+[node name="TextureRect3" type="TextureRect" parent="MarginContainer/HBoxContainer/hearts"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_8uvtb")
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/HBoxContainer/hearts"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_8uvtb")
+stretch_mode = 5
+
+[node name="TextureRect5" type="TextureRect" parent="MarginContainer/HBoxContainer/hearts"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_8uvtb")
+stretch_mode = 5

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmsklnqp4cn42"]
+
+[ext_resource type="PackedScene" uid="uid://blpcfxj4kjxx" path="res://enemies/bullet_base.tscn" id="1_8vom5"]
+
+[node name="playerBullets" instance=ExtResource("1_8vom5")]
+position = Vector2(2, 0)
+scale = Vector2(0.75, 0.75)
+collision_layer = 8

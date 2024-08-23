@@ -1,0 +1,144 @@
+[gd_scene load_steps=15 format=3 uid="uid://ym3h43q03ig0"]
+
+[ext_resource type="Script" path="res://checkpoint.gd" id="1_wxcqg"]
+[ext_resource type="Texture2D" uid="uid://jkeqvuixaole" path="res://assets/items/checkpoint.png" id="1_xu37e"]
+
+[sub_resource type="Animation" id="Animation_3cr72"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [27]
+}
+
+[sub_resource type="Animation" id="Animation_3bdr2"]
+resource_name = "appear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_1fpjf"]
+resource_name = "flag_flap"
+
+[sub_resource type="Animation" id="Animation_lxmml"]
+resource_name = "flag_open"
+length = 2.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_of5xh"]
+_data = {
+"RESET": SubResource("Animation_3cr72"),
+"appear": SubResource("Animation_3bdr2"),
+"flag_flap": SubResource("Animation_1fpjf"),
+"flag_open": SubResource("Animation_lxmml")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0v87v"]
+animation = &"appear"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j82ce"]
+animation = &"flag_open"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ivhxm"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_teqsb"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mla7f"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_4fuwy"]
+states/Start/position = Vector2(190, 89)
+states/appear/node = SubResource("AnimationNodeAnimation_0v87v")
+states/appear/position = Vector2(382, 100)
+states/flag_open/node = SubResource("AnimationNodeAnimation_j82ce")
+states/flag_open/position = Vector2(592, 100)
+transitions = ["Start", "appear", SubResource("AnimationNodeStateMachineTransition_ivhxm"), "appear", "flag_open", SubResource("AnimationNodeStateMachineTransition_teqsb"), "flag_open", "End", SubResource("AnimationNodeStateMachineTransition_mla7f")]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n42oh"]
+size = Vector2(13, 46)
+
+[node name="checkpoint" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_wxcqg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 3
+position = Vector2(13, -32)
+texture = ExtResource("1_xu37e")
+hframes = 26
+vframes = 3
+frame = 27
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_of5xh")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_of5xh")
+}
+tree_root = SubResource("AnimationNodeStateMachine_4fuwy")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(17, -23)
+shape = SubResource("RectangleShape2D_n42oh")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
